@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -35,25 +37,40 @@ class NoteInput extends React.Component {
   onSubmitEventHandler(event) {
     event.preventDefault();
     this.props.addNote(this.state);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 
   render() {
     return (
-      <form className="contact-input" onSubmit={this.onSubmitEventHandler}>
-        <input
-          type="text"
-          placeholder="Nama"
-          value={this.state.title}
-          onChange={this.onTitleChangeEventHandler}
-        />
-        <input
-          type="text"
-          placeholder="Body"
-          value={this.state.Body}
-          onChange={this.onBodyChangeEventHandler}
-        />
-        <button type="submit">Tambah</button>
-      </form>
+      <div className="note-input">
+        <form onSubmit={this.onSubmitEventHandler}>
+          <input
+            className="note-input__title"
+            type="text"
+            placeholder="Judul"
+            required
+            value={this.state.title}
+            onChange={this.onTitleChangeEventHandler}
+          />
+          <textarea
+            className="note-input__body"
+            type="text"
+            placeholder="Isi"
+            required
+            value={this.state.body}
+            onChange={this.onBodyChangeEventHandler}
+          />
+          <Button variant="primary" type="submit">
+            Tambah
+          </Button>
+        </form>
+      </div>
     );
   }
 }

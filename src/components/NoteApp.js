@@ -2,6 +2,7 @@ import React from "react";
 import NoteList from "./NoteList";
 import { getInitialData } from "../utils/data";
 import NoteInput from "./NoteInput";
+import Swal from "sweetalert2";
 
 class NoteApp extends React.Component {
   constructor(props) {
@@ -20,6 +21,13 @@ class NoteApp extends React.Component {
   onDeleteHandler(id) {
     const notes = this.state.notes.filter((note) => note.id !== id);
     this.setState({ notes });
+    Swal.fire({
+      position: "center",
+      icon: "warning",
+      title: "Your data has been deleted",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 
   onAddNoteHandler({ title, body }) {
@@ -31,6 +39,8 @@ class NoteApp extends React.Component {
             id: +new Date(),
             title,
             body,
+            createdAt: +new Date(),
+            archived: false,
           },
         ],
       };
@@ -41,6 +51,7 @@ class NoteApp extends React.Component {
     return (
       <div className="note-app">
         <h1>Aplikasi Note</h1>
+        <br></br>
         <h2>Tambah Note</h2>
         <NoteInput addNote={this.onAddNoteHandler} />
         <h2>Daftar Note</h2>
