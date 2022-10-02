@@ -10,7 +10,7 @@ class NoteInput extends React.Component {
     this.state = {
       title: "",
       body: "",
-      maxLimit: 5,
+      maxLimit: 20,
     };
 
     //binding
@@ -21,14 +21,14 @@ class NoteInput extends React.Component {
 
   onTitleChangeEventHandler(event) {
     this.setState(() => {
-      const limit = 5;
+      const limit = 20;
       const maxChara = event.target.value.length;
-      const resultChara = 5 - maxChara;
-      if (event.target.value.length === 6) {
+      const resultChara = 20 - maxChara;
+      if (event.target.value.length === 21) {
         Swal.fire({
           position: "center",
           icon: "warning",
-          title: "Judul tidak boleh lebih dari 5",
+          title: "Judul melebihi batas",
           showConfirmButton: false,
           timer: 1500,
         });
