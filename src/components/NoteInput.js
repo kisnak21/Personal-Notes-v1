@@ -10,6 +10,7 @@ class NoteInput extends React.Component {
     this.state = {
       title: "",
       body: "",
+      maxLimit: 5,
     };
 
     //binding
@@ -20,8 +21,22 @@ class NoteInput extends React.Component {
 
   onTitleChangeEventHandler(event) {
     this.setState(() => {
+      const limit = 5;
+      const maxChara = event.target.value.length;
+      const resultChara = 5 - maxChara;
+      if (event.target.value.length === 6) {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Judul tidak boleh lebih dari 5",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
       return {
-        title: event.target.value,
+        title: event.target.value.slice(0, limit),
+        maxLimit: resultChara,
       };
     });
   }
@@ -40,7 +55,7 @@ class NoteInput extends React.Component {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Your work has been saved",
+      title: "Data kamu berhasil disimpan",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -58,6 +73,7 @@ class NoteInput extends React.Component {
             value={this.state.title}
             onChange={this.onTitleChangeEventHandler}
           />
+          <h5>sisa karakter: {this.state.maxLimit}</h5>
           <textarea
             className="note-input__body"
             type="text"
@@ -66,7 +82,7 @@ class NoteInput extends React.Component {
             value={this.state.body}
             onChange={this.onBodyChangeEventHandler}
           />
-          <Button variant="primary" type="submit">
+          <Button variant="warning" type="submit">
             Tambah
           </Button>
         </form>

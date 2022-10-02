@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 * {
   padding: 0;
   margin: 0;
@@ -5,8 +6,8 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: whitesmoke;
+  font-family: 'Montserrat', sans-serif;
+    background-color: #eaf9e7;
 }
 
 .note-app {
@@ -30,6 +31,7 @@ body {
   border: 1px dashed black;
   padding: 16px;
   border-radius: 8px;
+  background-color: #c0e6ba;
 }
 
 .note-item__body {
@@ -37,10 +39,12 @@ body {
   padding-left: 8px;
   border-left: 1px solid #aaa;
   flex: 1;
+  
 }
 
 .note-item__title {
   padding: 4px 0;
+  color: #013237;
 }
 
 .note-input__body {
@@ -53,12 +57,14 @@ body {
   margin: 14px 0;
   border-radius: 8px;
   margin-bottom: 32px;
+  background-color: #4ca771;
 }
 
 .note-input input,
 .note-input textarea {
   display: block;
   width: 100%;
+  background-color: #c0e6ba;
 }
 
 .note-input {
@@ -71,8 +77,7 @@ input,
 textarea {
   padding: 12px;
   margin: 12px 0;
-  font-family: 'Inter', sans-serif;
-  background-color: transparent;
+  font-family: 'Montserrat', sans-serif;
   color: black;
   border: 1px solid #aaa;
   border-radius: 4px;
@@ -87,9 +92,4 @@ textarea::placeholder {
 .note-input button {
   width: 100%;
   padding: 8px;
-  font-family: 'Inter', sans-serif;
-}
-
-action-button {
-  background-color: orange;
 }

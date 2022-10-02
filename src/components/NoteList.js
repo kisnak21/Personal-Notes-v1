@@ -1,5 +1,4 @@
 import React from "react";
-//import { Card } from "react-bootstrap";
 import NoteItem from "./NoteItem";
 
 function NoteList({ notes, onDelete }) {

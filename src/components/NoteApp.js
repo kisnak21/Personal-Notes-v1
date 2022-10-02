@@ -24,7 +24,7 @@ class NoteApp extends React.Component {
     Swal.fire({
       position: "center",
       icon: "warning",
-      title: "Your data has been deleted",
+      title: "Data kamu berhasil dihapus",
       showConfirmButton: false,
       timer: 1500,
     });
