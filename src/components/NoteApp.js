@@ -16,6 +16,7 @@ class NoteApp extends React.Component {
     //binding
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
+    this.onArchiveHandler = this.onArchiveHandler.bind(this);
   }
 
   onDeleteHandler(id) {
@@ -26,8 +27,15 @@ class NoteApp extends React.Component {
       icon: "warning",
       title: "Data kamu berhasil dihapus",
       showConfirmButton: false,
-      timer: 1500,
+      timer: 1000,
     });
+  }
+
+  onArchiveHandler(id) {
+    const notes = this.state.notes.map((note) =>
+      note.id === id ? { ...note, archived: !note.archived } : note
+    );
+    this.setState({ notes });
   }
 
   onAddNoteHandler({ title, body }) {
@@ -48,14 +56,42 @@ class NoteApp extends React.Component {
   }
 
   render() {
+    let activeNote = null;
+    let archiveNote = null;
+
+    if (this.state.length > 0) {
+      activeNote = this.state.cariNotes.filter(
+        (note) => note.archived === false
+      );
+      archiveNote = this.state.cariNotes.filter(
+        (note) => note.archived === true
+      );
+    } else {
+      activeNote = this.state.notes.filter((note) => note.archived === false);
+      archiveNote = this.state.notes.filter((note) => note.archived === true);
+    }
     return (
       <div className="note-app">
-        <h1>Aplikasi Note</h1>
+        <h1>Personal Note</h1>
         <br></br>
-        <h2>Tambah Note</h2>
+        <h3>Tambah Note</h3>
         <NoteInput addNote={this.onAddNoteHandler} />
-        <h2>Daftar Note</h2>
-        <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} />
+        <h3>Note</h3>
+        {activeNote.length !== 0 ? (
+          <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} />
+        ) : (
+          <div className="notes-list__empty-message">Tidak Ada Catatan.</div>
+        )}
+        <h2>Arsip</h2>
+        {archiveNote.length !== 0 ? (
+          <NoteList
+            notes={archiveNote}
+            onDelete={this.onDeleteHandler}
+            onArchive={this.onArchiveHandler}
+          />
+        ) : (
+          <div className="notes-list__empty-message">Tidak Ada Catatan.</div>
+        )}
       </div>
     );
   }

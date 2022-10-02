@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-* {
+ * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -24,6 +24,10 @@ body {
   text-align: center;
 }
 
+.notes-list__empty-message {
+  text-align: center;
+  color: #aaa;
+}
 .note-item {
   display: flex;
   align-items: center;

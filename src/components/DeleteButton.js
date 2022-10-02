@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 
-function NoteButton({ id, onDelete }) {
+function NoteButton({ id, onDelete, onArchive }) {
   return (
     <div>
       <ButtonGroup>
@@ -14,7 +14,9 @@ function NoteButton({ id, onDelete }) {
           <Dropdown.Item eventKey="1" onClick={() => onDelete(id)}>
             Delete
           </Dropdown.Item>
-          <Dropdown.Item eventKey="2">Archive</Dropdown.Item>
+          <Dropdown.Item eventKey="2" onClick={() => onArchive(id)}>
+            Archive
+          </Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
     </div>
