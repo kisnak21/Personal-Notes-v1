@@ -2,6 +2,7 @@ import React from "react";
 import NoteList from "./NoteList";
 import { getInitialData } from "../utils/data";
 import NoteInput from "./NoteInput";
+import SearchNote from "./SearchNote";
 import Swal from "sweetalert2";
 
 class NoteApp extends React.Component {
@@ -11,12 +12,12 @@ class NoteApp extends React.Component {
     //init data
     this.state = {
       notes: getInitialData(),
+      keywordNote: "",
     };
 
     //binding
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
-    this.onArchiveHandler = this.onArchiveHandler.bind(this);
   }
 
   onDeleteHandler(id) {
@@ -31,12 +32,22 @@ class NoteApp extends React.Component {
     });
   }
 
-  onArchiveHandler(id) {
-    const notes = this.state.notes.map((note) =>
-      note.id === id ? { ...note, archived: !note.archived } : note
-    );
-    this.setState({ notes });
-  }
+  onArchiveHandler = (id) => {
+    this.setState({
+      notes: this.state.notes.map((note) => {
+        if (note.id === id) {
+          note.archived = !note.archived;
+        }
+        return note;
+      }),
+    });
+  };
+
+  onSearch = (e) => {
+    this.setState({
+      keywordNote: e,
+    });
+  };
 
   onAddNoteHandler({ title, body }) {
     this.setState((prevState) => {
@@ -56,36 +67,38 @@ class NoteApp extends React.Component {
   }
 
   render() {
-    let activeNote = null;
-    let archiveNote = null;
-
-    if (this.state.length > 0) {
-      activeNote = this.state.cariNotes.filter(
-        (note) => note.archived === false
-      );
-      archiveNote = this.state.cariNotes.filter(
-        (note) => note.archived === true
-      );
-    } else {
-      activeNote = this.state.notes.filter((note) => note.archived === false);
-      archiveNote = this.state.notes.filter((note) => note.archived === true);
-    }
+    const resultNote = this.state.notes.filter((note) => {
+      return note.title
+        .toLowerCase()
+        .includes(this.state.keywordNote.toLowerCase());
+    });
+    const activeNote = resultNote.filter((note) => {
+      return !note.archived;
+    });
+    const archivedNote = resultNote.filter((note) => {
+      return note.archived;
+    });
     return (
       <div className="note-app">
         <h1>Personal Note</h1>
-        <br></br>
+        <SearchNote isSearched={this.onSearch} />
         <h3>Tambah Note</h3>
         <NoteInput addNote={this.onAddNoteHandler} />
         <h3>Note</h3>
         {activeNote.length !== 0 ? (
-          <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} />
+          <NoteList
+            notes={activeNote}
+            onDelete={this.onDeleteHandler}
+            onArchive={this.onArchiveHandler}
+          />
         ) : (
           <div className="notes-list__empty-message">Tidak Ada Catatan.</div>
         )}
-        <h2>Arsip</h2>
-        {archiveNote.length !== 0 ? (
+
+        <h3>Arsip</h3>
+        {archivedNote.length !== 0 ? (
           <NoteList
-            notes={archiveNote}
+            notes={archivedNote}
             onDelete={this.onDeleteHandler}
             onArchive={this.onArchiveHandler}
           />

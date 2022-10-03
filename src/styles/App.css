@@ -19,7 +19,6 @@ body {
 
 .note-app h1 {
   font-weight: normal;
-  font-size: 48px;
   margin-bottom: 32px;
   text-align: center;
 }
@@ -28,6 +27,7 @@ body {
   text-align: center;
   color: #aaa;
 }
+
 .note-item {
   display: flex;
   align-items: center;
@@ -96,4 +96,21 @@ textarea::placeholder {
 .note-input button {
   width: 100%;
   padding: 8px;
+  background-color: #fff263;
+}
+
+.note-item__delete-button {
+  background-color: #fff263;
+}
+
+.note-item__archive-button {
+  background-color: #b00020;
+}
+
+.note-item__archive-button:hover {
+  color: #c49000;
+}
+
+.note-item__delete-button:hover {
+  color: #b00020;
 }

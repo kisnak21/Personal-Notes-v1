@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 class NoteInput extends React.Component {
@@ -10,7 +9,7 @@ class NoteInput extends React.Component {
     this.state = {
       title: "",
       body: "",
-      maxLimit: 20,
+      maxLimit: 50,
     };
 
     //binding
@@ -21,10 +20,10 @@ class NoteInput extends React.Component {
 
   onTitleChangeEventHandler(event) {
     this.setState(() => {
-      const limit = 20;
+      const limit = 50;
       const maxChara = event.target.value.length;
-      const resultChara = 20 - maxChara;
-      if (event.target.value.length === 21) {
+      const resultChara = 50 - maxChara;
+      if (maxChara === 51) {
         Swal.fire({
           position: "center",
           icon: "warning",
@@ -68,7 +67,7 @@ class NoteInput extends React.Component {
           <input
             className="note-input__title"
             type="text"
-            placeholder="Judul"
+            placeholder="Isi judul catatanmu..."
             required
             value={this.state.title}
             onChange={this.onTitleChangeEventHandler}
@@ -77,14 +76,14 @@ class NoteInput extends React.Component {
           <textarea
             className="note-input__body"
             type="text"
-            placeholder="Isi"
+            placeholder="Isi catatanmu..."
             required
             value={this.state.body}
             onChange={this.onBodyChangeEventHandler}
           />
-          <Button variant="warning" type="submit">
+          <button className="note-input__button" type="submit">
             Tambah
-          </Button>
+          </button>
         </form>
       </div>
     );

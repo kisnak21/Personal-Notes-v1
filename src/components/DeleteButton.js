@@ -1,24 +1,17 @@
 import React from "react";
-import { ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 
-function NoteButton({ id, onDelete, onArchive }) {
+function NoteButton({ id, onDelete, onArchive, isArchived }) {
   return (
-    <div>
-      <ButtonGroup>
-        <DropdownButton
-          as={ButtonGroup}
-          title="Action"
-          id="bg-nested-dropdown"
-          className="action-button"
-        >
-          <Dropdown.Item eventKey="1" onClick={() => onDelete(id)}>
-            Delete
-          </Dropdown.Item>
-          <Dropdown.Item eventKey="2" onClick={() => onArchive(id)}>
-            Archive
-          </Dropdown.Item>
-        </DropdownButton>
-      </ButtonGroup>
+    <div className="note-item__action">
+      <button className="note-item__delete-button" onClick={() => onDelete(id)}>
+        Hapus
+      </button>
+      <button
+        className="note-item__archive-button"
+        onClick={() => onArchive(id)}
+      >
+        {isArchived ? "Pindahkan" : "Arsipkan"}
+      </button>
     </div>
   );
 }
